@@ -10,7 +10,7 @@ const addZero = (item) => {
 
 
 const clock = () => {
-    let time = new Date();
+    const time = new Date();
 
     // Przykładowe metody które są dostępne:
     console.log(`time.getFullYear(): ${time.getFullYear()}`);

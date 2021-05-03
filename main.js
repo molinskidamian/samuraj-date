@@ -1,33 +1,39 @@
-span = document.querySelector('span');
-span.classList.add('red');
+const spans = document.querySelectorAll('h1 > span');
+const spanP = document.querySelectorAll("p > span");
 
-const addZero = (item) => {
-  if(item < 10) {
-    return item.textContent = `0${item}`;
-  }
-  return item;
-}
+spanP.forEach(element => {
+  element.classList.add('red');
+});
 
+const endTime = new Date('2036-12-09 11:20:00').getTime();
 
-const clock = () => {
-    const time = new Date();
+setInterval(() => {
+    const nowTime = new Date().getTime();
 
-    // Przykładowe metody które są dostępne:
-    console.log(`time.getFullYear(): ${time.getFullYear()}`);
-    console.log(`time.toLocaleString(): ${time.toLocaleString()}`);
-    console.log(`time.toLocaleDateString(): ${time.toLocaleDateString()}`);
-    console.log(`time.getTime(): ${time.getTime()}`);
+    const years = Math.floor(
+        (endTime / (1000 * 60 * 60 * 24) -
+            nowTime / (1000 * 60 * 60 * 24)) / 365
+    );
 
-    console.log("-------------------");
+    const days = Math.floor(
+        (((endTime / (1000 * 60 * 60 * 24)) - (nowTime / (1000 * 60 * 60 * 24)))) % 365
+    );
 
-    const seconds = time.getSeconds();
-    const minutes = time.getMinutes();
-    const hours = time.getHours();
+    const hours = Math.floor(
+        (endTime / (1000 * 60 * 60 * 24) - nowTime / (1000 * 60 * 60 * 24)) % 24
+    );
 
-    let myFormat = `${addZero(hours)} : ${addZero(minutes)} : ${addZero(seconds)}`;
-    console.log(myFormat);
+    const minutes = Math.floor(
+        ((endTime / (1000 * 60)) - (nowTime / (1000 * 60))) % 60
+    );
 
-    span.textContent = myFormat;
-}
+    const seconds = Math.floor(
+        ((endTime / (1000)) - (nowTime / (1000))) % 60
+    );
 
-setInterval(clock, 1000);
+    spans[0].textContent = years; // years
+    spans[1].textContent = days; // years
+    spans[2].textContent = hours; // months
+    spans[3].textContent = minutes; // minutes
+    spans[4].textContent = seconds; // seconds
+}, 1000);
